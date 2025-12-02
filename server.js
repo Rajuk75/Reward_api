@@ -1,11 +1,24 @@
 const express = require("express");
 const dotenv = require("dotenv");
-const app = express();
-const connectDb = require("./src/config/db");
+const userRoute = require("./src/routes/user.route");
+const config = require("./src/config/config");
 const connectDB = require("./src/config/db");
 
-connectDB();
 dotenv.config();
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
+const app = express();
+
+app.use(express.json());
+
+
+connectDB();
+
+app.use("/",userRoute)
+
+app.get("/", (req, res) => {
+  res.send("API running...");
+});
+
+app.listen(config.PORT, () =>
+  console.log(`Server listening on port ${config.PORT}`)
+);
