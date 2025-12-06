@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { USER_TYPE_ADMIN, USER_TYPE_USER } = require("../constant/enum");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -15,6 +16,12 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+    },
+     userType: {
+      type: String,
+      required: true,
+      enum:[USER_TYPE_ADMIN,USER_TYPE_USER],
+      default: USER_TYPE_USER
     },
 
     referralCode: {

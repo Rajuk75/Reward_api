@@ -7,3 +7,29 @@ exports.createUserRepo = async(userData)=> {
     throw new Error(error.message) 
     }
 };
+
+exports.loginUserRepo = async ( email ) => {
+  try {
+    const user = await User.findOne( email );
+    return user;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+exports.getAllUsersRepo = async () => {
+  try {
+    return await User.find({ isDeleted: false }); 
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+exports.updateUserRepo = async (id, data) => {
+  try {
+    return await User.findByIdAndUpdate(id, data, { new: true });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
